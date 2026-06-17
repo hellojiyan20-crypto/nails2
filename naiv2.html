@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>NAIL VERSE | Luxury Nail Studio · Karachi</title>
+  <meta name="description" content="NAIL VERSE — Karachi's most exclusive nail atelier. Custom gel, acrylic, art & press-on collections. Redefining luxury at your fingertips.">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <!-- SplitType -->
+  <script src="https://unpkg.com/split-type"></script>
+  <!-- Lenis Smooth Scroll -->
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <!-- Swiper -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  
+  <style>
+    /* === CUSTOM LUXURY STYLES === */
+    :root {
+      --ivory: #FBF7F2;
+      --beige: #F2E8DF;
+      --gold: #C9A96E;
+      --gold-light: #DFC99C;
+      --charcoal: #2C2C2C;
+      --cream: #FFFDF9;
+      --glass: rgba(251, 247, 242, 0.65);
+      --glass-border: rgba(201, 169, 110, 0.25);
+      --ease-premium: cubic-bezier(0.22, 0.61, 0.36, 1);
+    }
+    
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--ivory);
+      color: var(--charcoal);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    .lenis.lenis-smooth { scroll-behavior: auto; }
+    .lenis.lenis-stopped { overflow: hidden; }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--beige); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 8px; }
+    
+    /* Glass morphism panels */
+    .glass-panel {
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 2.5rem;
+      box-shadow: 0 25px 45px -18px rgba(0,0,0,0.06);
+    }
+    
+    .gold-line {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      width: 80px;
+    }
+    
+    .btn-luxury {
+      background: rgba(201, 169, 110, 0.9);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(201, 169, 110, 0.4);
+      color: white;
+      padding: 0.9rem 2.6rem;
+      border-radius: 3rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: all 0.5s var(--ease-premium);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-luxury:hover {
+      background: rgba(180, 148, 85, 1);
+      transform: translateY(-3px);
+      box-shadow: 0 18px 35px -10px rgba(201, 169, 110, 0.4);
+    }
+    
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--charcoal);
+      padding: 0.9rem 2.6rem;
+      border-radius: 3rem;
+      font-weight: 500;
+      transition: 0.4s ease;
+    }
+    .btn-outline:hover {
+      background: rgba(201, 169, 110, 0.08);
+    }
+    
+    .service-card {
+      background: rgba(255, 252, 248, 0.7);
+      backdrop-filter: blur(12px);
+      border-radius: 2rem;
+      transition: all 0.5s var(--ease-premium);
+    }
+    .service-card:hover {
+      transform: translateY(-10px);
+      background: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 35px 50px -22px rgba(0,0,0,0.08);
+    }
+    
+    .img-mask {
+      border-radius: 3rem;
+      overflow: hidden;
+      box-shadow: 0 30px 50px -25px rgba(0,0,0,0.1);
+    }
+    
+    /* Magnetic button */
+    .magnetic { transition: transform 0.3s ease-out; }
+    
+    @keyframes softFloat {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+      100% { transform: translateY(0px); }
+    }
+    .floating-badge {
+      animation: softFloat 6s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="bg-[#FBF7F2]">
+
+  <!-- LOADER -->
+  <div id="loader" class="fixed inset-0 z-[200] bg-[#FBF7F2] flex items-center justify-center transition-opacity duration-800 pointer-events-none">
+    <div class="text-center">
+      <h1 class="text-3xl md:text-4xl font-light tracking-[0.35em] text-[#C9A96E]">NAIL VERSE</h1>
+      <div class="mt-5 w-20 h-[1.5px] bg-[#C9A96E] mx-auto animate-pulse"></div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main id="main-content" class="relative opacity-0 transition-opacity duration-1000">
+    
+    <!-- FLOATING PREMIUM NAVBAR -->
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 py-4 px-6 md:px-10 transition-all duration-500">
+      <div class="max-w-7xl mx-auto flex items-center justify-between glass-panel !rounded-full px-6 py-3 md:px-8 md:py-4">
+        <a href="#" class="text-xl md:text-2xl font-light tracking-[0.25em] text-[#C9A96E]">NAIL VERSE</a>
+        <div class="hidden md:flex items-center gap-10 text-sm uppercase tracking-widest text-[#2C2C2C]/70">
+          <a href="#services" class="hover:text-[#C9A96E] transition">Services</a>
+          <a href="#gallery" class="hover:text-[#C9A96E] transition">Work</a>
+          <a href="#experience" class="hover:text-[#C9A96E] transition">Studio</a>
+          <a href="#booking" class="btn-luxury !py-2 !px-6 text-xs">Book</a>
+        </div>
+        <button id="mobile-menu-btn" class="md:hidden"><i data-lucide="menu" class="w-6 h-6 text-[#C9A96E]"></i></button>
+      </div>
+    </nav>
+
+    <!-- SECTION 01 — EDITORIAL HERO -->
+    <section class="relative min-h-screen flex items-center pt-24 pb-12 overflow-hidden">
+      <div class="absolute inset-0 -z-10">
+        <div class="absolute top-20 left-10 w-96 h-96 bg-[#C9A96E] opacity-[0.04] rounded-full blur-3xl"></div>
+        <div class="absolute bottom-10 right-10 w-[30rem] h-[30rem] bg-[#DFC99C] opacity-[0.05] rounded-full blur-3xl"></div>
+      </div>
+      
+      <div class="max-w-7xl mx-auto px-6 md:px-12 w-full grid md:grid-cols-2 gap-12 items-center">
+        <!-- Left: Typography -->
+        <div class="space-y-7 md:space-y-9">
+          <div class="inline-flex items-center gap-3 glass-panel !rounded-full px-5 py-2 text-xs tracking-[0.2em] uppercase">
+            <span class="w-2 h-2 bg-[#C9A96E] rounded-full"></span> Karachi Atelier
+          </div>
+          <h1 class="text-5xl md:text-7xl lg:text-8xl font-light leading-[0.95] tracking-tight split-text">
+            Luxury at<br>your fingertips
+          </h1>
+          <p class="text-lg md:text-xl text-[#2C2C2C]/60 max-w-md font-light split-text">
+            Bespoke nail artistry sculpted for the modern aesthetic.
+          </p>
+          <div class="flex flex-wrap gap-4 pt-4">
+            <a href="#booking" class="btn-luxury magnetic">Begin Journey</a>
+            <a href="#gallery" class="btn-outline magnetic">View Portfolio</a>
+          </div>
+          <div class="flex gap-8 md:gap-12 pt-8 text-sm border-t border-[#C9A96E]/20 mt-6">
+            <div><span class="text-2xl font-light text-[#C9A96E]">500+</span><p class="text-xs opacity-60">Sets Created</p></div>
+            <div><span class="text-2xl font-light text-[#C9A96E]">98%</span><p class="text-xs opacity-60">Returning</p></div>
+            <div><span class="text-2xl font-light text-[#C9A96E]">4.9</span><p class="text-xs opacity-60">Rating</p></div>
+          </div>
+        </div>
+        <!-- Right: Cinematic image -->
+        <div class="relative">
+          <div class="img-mask h-[70vh] md:h-[80vh]">
+            <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?q=80&w=1974&auto=format&fit=crop" alt="luxury nails editorial" class="w-full h-full object-cover">
+          </div>
+          <div class="absolute -bottom-4 -left-4 glass-panel !rounded-2xl px-5 py-3 floating-badge">
+            <p class="text-xs tracking-widest">✦ PREMIUM STUDIO</p>
+          </div>
+        </div>
+      </div>
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce"><i data-lucide="chevron-down" class="w-5 h-5 text-[#C9A96E]/70"></i></div>
+    </section>
+
+    <!-- SECTION 02 — SIGNATURE COLLECTION (Horizontal showcase) -->
+    <section id="services" class="py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto">
+      <div class="mb-16 flex flex-col md:flex-row md:items-end justify-between">
+        <h2 class="text-4xl md:text-6xl font-light split-text">Signature Collection</h2>
+        <div class="gold-line mt-4 md:mt-0"></div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="service-card p-8 text-center"><i data-lucide="circle" class="w-8 h-8 text-[#C9A96E] mx-auto mb-5"></i><h3 class="text-2xl font-medium">Minimal</h3><p class="text-sm opacity-60 mt-2">Quiet elegance.</p></div>
+        <div class="service-card p-8 text-center"><i data-lucide="droplets" class="w-8 h-8 text-[#C9A96E] mx-auto mb-5"></i><h3 class="text-2xl font-medium">Gloss</h3><p class="text-sm opacity-60 mt-2">High-shine perfection.</p></div>
+        <div class="service-card p-8 text-center"><i data-lucide="gem" class="w-8 h-8 text-[#C9A96E] mx-auto mb-5"></i><h3 class="text-2xl font-medium">Luxury</h3><p class="text-sm opacity-60 mt-2">Bespoke artistry.</p></div>
+        <div class="service-card p-8 text-center"><i data-lucide="sparkles" class="w-8 h-8 text-[#C9A96E] mx-auto mb-5"></i><h3 class="text-2xl font-medium">Custom</h3><p class="text-sm opacity-60 mt-2">Your vision crafted.</p></div>
+      </div>
+    </section>
+
+    <!-- SECTION 03 — BEFORE / AFTER TRANSFORMATION -->
+    <section class="py-20 md:py-28 bg-[#F2E8DF]/40">
+      <div class="max-w-6xl mx-auto px-6 md:px-12">
+        <h2 class="text-4xl md:text-5xl font-light text-center mb-16 split-text">The Transformation</h2>
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+          <div class="img-mask h-72 md:h-96"><img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=1480&auto=format&fit=crop" alt="before nails" class="w-full h-full object-cover"></div>
+          <div class="img-mask h-72 md:h-96"><img src="https://images.unsplash.com/photo-1607779097040-26e80aa78e66?q=80&w=1974&auto=format&fit=crop" alt="after nails" class="w-full h-full object-cover"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 04 — INSTAGRAM SOCIAL WALL -->
+    <section class="py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto">
+      <h2 class="text-4xl md:text-6xl font-light mb-14 split-text">@nailverse.khi</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+        <div class="img-mask h-56 md:h-72"><img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?q=80&w=1974&auto=format&fit=crop" class="w-full h-full object-cover hover:scale-105 transition duration-700"></div>
+        <div class="img-mask h-56 md:h-72"><img src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?q=80&w=1974&auto=format&fit=crop" class="w-full h-full object-cover hover:scale-105 transition"></div>
+        <div class="img-mask h-56 md:h-72"><img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=1974&auto=format&fit=crop" class="w-full h-full object-cover hover:scale-105 transition"></div>
+        <div class="img-mask h-56 md:h-72"><img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=1974&auto=format&fit=crop" class="w-full h-full object-cover hover:scale-105 transition"></div>
+      </div>
+    </section>
+
+    <!-- SECTION 05 — STUDIO ATMOSPHERE -->
+    <section id="experience" class="py-24 md:py-32 bg-[#FBF7F2]">
+      <div class="max-w-7xl mx-auto px-6 md:px-12 grid md:grid-cols-2 gap-16 items-center">
+        <div class="img-mask h-[500px]"><img src="https://images.unsplash.com/photo-1560750588-73207b1ef5b8?q=80&w=1974&auto=format&fit=crop" alt="studio atmosphere" class="w-full h-full object-cover"></div>
+        <div class="space-y-8">
+          <h2 class="text-4xl md:text-6xl font-light split-text">Designed to feel calm.</h2>
+          <p class="text-lg opacity-70 font-light">Curated lighting, premium tools, and an atmosphere of quiet luxury. Every detail considered.</p>
+          <div class="gold-line"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 06 — ANIMATED BOOKING EXPERIENCE -->
+    <section id="booking" class="py-24 md:py-32 relative">
+      <div class="max-w-4xl mx-auto px-6 text-center">
+        <h2 class="text-4xl md:text-7xl font-light mb-8 split-text">Begin your experience</h2>
+        <div class="glass-panel p-8 md:p-12 mt-12">
+          <div class="flex flex-col md:flex-row justify-center gap-8 md:gap-16">
+            <div class="text-left"><span class="text-3xl font-light text-[#C9A96E]">01</span><h4 class="text-xl mt-2">Choose Service</h4></div>
+            <div class="text-left"><span class="text-3xl font-light text-[#C9A96E]">02</span><h4 class="text-xl mt-2">Select Style</h4></div>
+            <div class="text-left"><span class="text-3xl font-light text-[#C9A96E]">03</span><h4 class="text-xl mt-2">Book</h4></div>
+          </div>
+          <div class="flex flex-wrap gap-5 justify-center mt-10">
+            <a href="https://instagram.com/nailverse" target="_blank" class="btn-luxury"><i data-lucide="instagram" class="w-5 h-5"></i> Instagram DM</a>
+            <a href="https://wa.me/923001234567" target="_blank" class="btn-outline"><i data-lucide="message-circle" class="w-5 h-5"></i> WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 07 — PREMIUM FOOTER -->
+    <footer class="border-t border-[#C9A96E]/20 py-16 px-6 md:px-12">
+      <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+        <h3 class="text-2xl font-light tracking-[0.3em] text-[#C9A96E]">NAIL VERSE</h3>
+        <div class="flex gap-8 text-sm opacity-70">
+          <a href="#" class="hover:text-[#C9A96E]">Instagram</a>
+          <a href="#" class="hover:text-[#C9A96E]">Contact</a>
+          <a href="#" class="hover:text-[#C9A96E]">Karachi</a>
+        </div>
+        <p class="text-xs opacity-50">© 2025 Nail Verse. Luxury at your fingertips.</p>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    (function() {
+      lucide.createIcons();
+      
+      // Lenis
+      const lenis = new Lenis({ duration: 1.6, easing: t => 1 - Math.pow(1 - t, 3) });
+      function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+      requestAnimationFrame(raf);
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add((time) => lenis.raf(time * 1000));
+      
+      // Loader
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          document.getElementById('loader').style.opacity = '0';
+          document.getElementById('main-content').style.opacity = '1';
+          setTimeout(() => document.getElementById('loader').style.display = 'none', 800);
+        }, 500);
+      });
+      
+      // Navbar shrink
+      const navbar = document.getElementById('navbar');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 40) navbar.classList.add('!py-2');
+        else navbar.classList.remove('!py-2');
+      });
+      
+      // Split text
+      document.querySelectorAll('.split-text').forEach(el => {
+        if (el.classList.contains('split-done')) return;
+        el.classList.add('split-done');
+        const split = new SplitType(el, { types: 'words,chars' });
+        gsap.from(split.chars, { opacity: 0, y: 18, duration: 0.6, stagger: 0.025, ease: "power2.out",
+          scrollTrigger: { trigger: el, start: "top 82%" } });
+      });
+      
+      // Magnetic buttons
+      document.querySelectorAll('.magnetic').forEach(btn => {
+        btn.addEventListener('mousemove', e => {
+          const rect = btn.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width/2;
+          const y = e.clientY - rect.top - rect.height/2;
+          gsap.to(btn, { x: x*0.18, y: y*0.18, duration: 0.4 });
+        });
+        btn.addEventListener('mouseleave', () => gsap.to(btn, { x: 0, y: 0, duration: 0.4 }));
+      });
+      
+      // Mobile menu toggle (simple)
+      document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
+        alert('Mobile menu elegance – simplified for demo.');
+      });
+    })();
+  </script>
+</body>
+</html>
